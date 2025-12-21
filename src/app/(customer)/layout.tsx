@@ -1,7 +1,6 @@
-
 import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
-import React from "react";
+import React, { Suspense } from "react"; // 1. Import Suspense
 
 export default function CustomerLayout({
   children,
@@ -10,12 +9,14 @@ export default function CustomerLayout({
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Navigation will go here */}
-
-      <Navbar/>
+      {/* 2. Wrap Navbar in Suspense */}
+      <Suspense fallback={<div className="h-20 bg-white w-full" />}>
+        <Navbar />
+      </Suspense>
+      
       <main className="flex-1">{children}</main>
-      {/* Footer will go here */}
-      <Footer/>
+      
+      <Footer />
     </div>
   );
 }
