@@ -6,129 +6,133 @@ import {
   Facebook, 
   Instagram, 
   Twitter, 
-  Send,
+  Youtube,
   ShieldCheck,
   Truck,
+  Headset,
+  CreditCard,
+  Mail,
+  ArrowUpRight,
+  MapPin,
   Phone,
-  ArrowRight
+  LucideIcon // Added for better typing
 } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-zinc-950 text-zinc-400 pt-20 pb-10 border-t border-zinc-900">
-      <div className="max-w-7xl mx-auto px-4">
+    <footer className="bg-[#0f1111] text-zinc-300 pt-20 pb-8 border-t border-zinc-800">
+      <div className="container mx-auto px-4">
         
-        {/* --- TOP SECTION: MINIMALIST TRUST BADGES --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-16 border-b border-zinc-900 mb-16">
-          <div className="flex items-start gap-5">
-            <div className="h-12 w-12 rounded-full bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800">
-              <Truck size={22} />
-            </div>
-            <div>
-              <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-1">Elite Delivery</h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">Express nationwide shipping across all 64 districts in Bangladesh.</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-5">
-            <div className="h-12 w-12 rounded-full bg-zinc-900 flex items-center justify-center text-blue-500 border border-zinc-800">
-              <ShieldCheck size={22} />
-            </div>
-            <div>
-              <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-1">Secure Vault</h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">Military-grade SSL encryption for all your premium transactions.</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-5">
-            <div className="h-12 w-12 rounded-full bg-zinc-900 flex items-center justify-center text-purple-500 border border-zinc-800">
-              <Phone size={22} />
-            </div>
-            <div>
-              <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-1">Concierge 24/7</h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">Dedicated support line for our community, anytime, anywhere.</p>
-            </div>
-          </div>
+        {/* --- 1. PREMIUM TRUST GRID --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-16 border-b border-zinc-800/50">
+          <TrustBadge 
+            Icon={Truck} 
+            title="Express Delivery" 
+            desc="Fast shipping to all 64 districts" 
+            iconColor="text-[#ff6000]"
+          />
+          <TrustBadge 
+            Icon={ShieldCheck} 
+            title="Buyer Protection" 
+            desc="Secure payments & guaranteed returns" 
+            iconColor="text-blue-500"
+          />
+          <TrustBadge 
+            Icon={Headset} 
+            title="24/7 Support" 
+            desc="Real humans, ready to help anytime" 
+            iconColor="text-green-500"
+          />
+          <TrustBadge 
+            Icon={CreditCard} 
+            title="Flexible Payment" 
+            desc="Bkash, Nagad, & Credit Cards" 
+            iconColor="text-purple-500"
+          />
         </div>
 
-        {/* --- MAIN CONTENT --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
-          
-          {/* Column 1: Brand & Social */}
-          <div className="space-y-8">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-sm bg-emerald-500 rotate-45" />
+        {/* --- 2. MAIN NAVIGATION LINKS --- */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 py-16">
+          <div className="col-span-2 lg:col-span-2 pr-0 lg:pr-20">
+            <Link href="/" className="flex items-center gap-2 mb-6">
+              <div className="bg-[#ff6000] p-1.5 rounded-lg">
+                <div className="grid grid-cols-2 gap-0.5">
+                  <div className="w-2 h-2 bg-white rounded-sm"></div>
+                  <div className="w-2 h-2 bg-white rounded-sm opacity-60"></div>
+                  <div className="w-2 h-2 bg-white rounded-sm opacity-60"></div>
+                  <div className="w-2 h-2 bg-white rounded-sm"></div>
+                </div>
+              </div>
               <span className="text-2xl font-black italic tracking-tighter uppercase text-white">
-                BIP<span className="text-emerald-500">BAZAR</span>
+                BIP<span className="text-[#ff6000]">BAZAR</span>
               </span>
-            </div>
-            <p className="text-sm leading-7 text-zinc-500">
-              The definitive destination for premium tech. We curate only the finest GaN chargers, 
-              smart devices, and accessories for the modern enthusiast.
+            </Link>
+            <p className="text-sm leading-relaxed text-zinc-500 mb-8 max-w-sm">
+              Your curated destination for high-performance gadgets. 
+              We bridge the gap between global technology and the Bangladeshi enthusiast.
             </p>
             <div className="flex gap-4">
               <SocialIcon icon={<Facebook size={18} />} />
               <SocialIcon icon={<Instagram size={18} />} />
               <SocialIcon icon={<Twitter size={18} />} />
+              <SocialIcon icon={<Youtube size={18} />} />
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="lg:pl-10">
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-zinc-200 mb-8">Collections</h4>
-            <ul className="space-y-5">
-              <FooterLink href="/products?cat=chargers">GaN Technology</FooterLink>
-              <FooterLink href="/products?cat=audio">Audiophile Series</FooterLink>
-              <FooterLink href="/products?cat=smart-home">Living Ecosystem</FooterLink>
-              <FooterLink href="/products?cat=accessories">Essential Gear</FooterLink>
+          <div>
+            <h4 className="font-bold text-white text-sm mb-6 uppercase tracking-widest">Shop</h4>
+            <ul className="space-y-4">
+              <FooterLink href="/new-arrivals">New Arrivals</FooterLink>
+              <FooterLink href="/best-sellers">Best Sellers</FooterLink>
+              <FooterLink href="/flash-sale">Flash Deals</FooterLink>
             </ul>
           </div>
 
-          {/* Column 3: Customer Care */}
-          <div className="lg:pl-10">
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-zinc-200 mb-8">Experience</h4>
-            <ul className="space-y-5">
-              <FooterLink href="/track-order">Order Concierge</FooterLink>
-              <FooterLink href="/return-policy">Return Policy</FooterLink>
-              <FooterLink href="/terms">Privacy & Terms</FooterLink>
-              <FooterLink href="/contact">Get in Touch</FooterLink>
+          <div>
+            <h4 className="font-bold text-white text-sm mb-6 uppercase tracking-widest">Support</h4>
+            <ul className="space-y-4">
+              <FooterLink href="/track">Track Order</FooterLink>
+              <FooterLink href="/returns">Returns & Refunds</FooterLink>
+              <FooterLink href="/help">Help Center</FooterLink>
             </ul>
           </div>
 
-          {/* Column 4: Newsletter */}
-          <div className="space-y-8">
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-zinc-200 mb-2">Join the Club</h4>
-            <p className="text-xs text-zinc-500 leading-relaxed italic">Subscribe to receive exclusive early access to new drops.</p>
-            <div className="relative group">
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-none px-0 py-4 border-b-emerald-500/50 text-sm outline-none focus:border-b-emerald-500 transition-all placeholder:text-zinc-700 text-white"
-              />
-              <button className="absolute right-0 top-4 text-emerald-500 hover:text-white transition-colors">
-                <ArrowRight size={20} />
-              </button>
-            </div>
+          <div>
+            <h4 className="font-bold text-white text-sm mb-6 uppercase tracking-widest">Contact</h4>
+            <ul className="space-y-4 text-sm text-zinc-500">
+              <li className="flex items-start gap-3"><MapPin size={18} className="text-[#ff6000]" /> Dhaka, BD</li>
+              <li className="flex items-center gap-3"><Phone size={18} className="text-[#ff6000]" /> +880 1XXX-XXXXXX</li>
+            </ul>
           </div>
         </div>
 
-        {/* --- BOTTOM SECTION --- */}
-        <div className="pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-[10px] font-medium text-zinc-600 uppercase tracking-widest">
-            © 2025 <span className="text-zinc-400">BIP BAZAR LTD</span>. Crafted for Excellence.
+        {/* --- 3. NEWSLETTER --- */}
+        <div className="bg-zinc-900/50 rounded-3xl p-8 lg:p-12 mb-16 border border-zinc-800 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div>
+            <h3 className="text-2xl font-bold text-white mb-2">Subscribe to the VIP list</h3>
+            <p className="text-zinc-500 text-sm">Get early access to drops and secret coupons.</p>
           </div>
-          
-          <div className="flex items-center gap-6 opacity-40 hover:opacity-100 transition-opacity duration-500">
-            <div className="h-5 flex items-center grayscale invert px-2">
-               <span className="text-[10px] font-black tracking-tighter">BKASH</span>
-            </div>
-            <div className="h-5 flex items-center grayscale invert px-2">
-               <span className="text-[10px] font-black tracking-tighter">NAGAD</span>
-            </div>
-            <div className="h-5 flex items-center grayscale invert px-2">
-               <span className="text-[10px] font-black tracking-tighter">VISA</span>
-            </div>
-            <div className="h-5 flex items-center grayscale invert px-2">
-               <span className="text-[10px] font-black tracking-tighter">MASTERCARD</span>
-            </div>
+          <div className="w-full lg:w-auto flex-1 max-w-md relative group">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              className="w-full bg-[#0a0a0a] border border-zinc-700 rounded-full py-4 pl-6 pr-32 text-sm text-white focus:border-[#ff6000] outline-none transition-all"
+            />
+            <button className="absolute right-2 top-2 bottom-2 bg-[#ff6000] text-white px-6 rounded-full font-bold hover:bg-[#e65600] transition-colors flex items-center gap-2">
+              Join <ArrowUpRight size={16} />
+            </button>
+          </div>
+        </div>
+
+        {/* --- 4. BOTTOM BAR --- */}
+        <div className="pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-[11px] font-medium text-zinc-600 uppercase tracking-widest">
+            © 2025 <span className="text-white">BIP BAZAR LIMITED</span>. ALL RIGHTS RESERVED.
+          </div>
+          <div className="flex gap-4 grayscale opacity-60">
+            <PaymentBadge label="bKash" />
+            <PaymentBadge label="Nagad" />
+            <PaymentBadge label="VISA" />
           </div>
         </div>
       </div>
@@ -136,12 +140,33 @@ export default function Footer() {
   );
 }
 
-// --- HELPER COMPONENTS ---
+// --- FIXED TYPE-SAFE COMPONENTS ---
+
+interface TrustBadgeProps {
+  Icon: LucideIcon;
+  title: string;
+  desc: string;
+  iconColor: string;
+}
+
+function TrustBadge({ Icon, title, desc, iconColor }: TrustBadgeProps) {
+  return (
+    <div className="flex items-center gap-4 p-4 rounded-2xl hover:bg-zinc-900/50 transition-colors">
+      <div className="h-12 w-12 rounded-xl bg-zinc-900 flex items-center justify-center border border-zinc-800">
+        <Icon size={24} className={iconColor} />
+      </div>
+      <div>
+        <h4 className="font-bold text-white text-sm tracking-tight">{title}</h4>
+        <p className="text-[12px] text-zinc-500 leading-tight">{desc}</p>
+      </div>
+    </div>
+  );
+}
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="text-[13px] font-medium text-zinc-500 hover:text-emerald-500 hover:translate-x-1 transition-all inline-block">
+      <Link href={href} className="text-sm font-medium text-zinc-500 hover:text-[#ff6000] hover:translate-x-1 transition-all inline-block">
         {children}
       </Link>
     </li>
@@ -150,8 +175,16 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 
 function SocialIcon({ icon }: { icon: React.ReactNode }) {
   return (
-    <button className="h-10 w-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500 hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all duration-300">
+    <button className="h-10 w-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:bg-[#ff6000] hover:text-white transition-all shadow-lg">
       {icon}
     </button>
+  );
+}
+
+function PaymentBadge({ label }: { label: string }) {
+  return (
+    <span className="text-[10px] font-black text-white px-3 py-1 bg-zinc-800 rounded-md border border-zinc-700">
+      {label}
+    </span>
   );
 }

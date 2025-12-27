@@ -1,3 +1,4 @@
+import ExploreInterests from "@/components/customer/ExploreInterests";
 import FeaturedBrands from "@/components/customer/FeaturedBrand";
 import FlashSale from "@/components/customer/FlashSale";
 import Hero from "@/components/customer/Hero";
@@ -12,7 +13,7 @@ export default function Home() {
       <div className="container mx-auto px-4">
         {/* Flash Sale Section */}
         <FlashSale />
-        <FeaturedBrands/>
+        <ExploreInterests/>
         {/* You can add more sections here like 'Top Categories' or 'For You' */}
 
       </div>

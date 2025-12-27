@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Star, ShoppingCart, Heart, Eye } from "lucide-react";
+import { Star, ShoppingCart, Heart, Zap, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   id?: string;
@@ -14,86 +15,95 @@ interface ProductCardProps {
   rating?: number;
   reviews?: number;
   badge?: string;
+  soldCount?: string;
+  isFlashSale?: boolean;
 }
 
 export default function ProductCard({
   id = "1",
-  name = "Premium GaN 65W Fast Charger",
-  price = 1850,
-  oldPrice = 2500,
-  image = "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=400",
+  name,
+  price,
+  oldPrice,
+  image,
   rating = 4.8,
   reviews = 124,
-  badge = "-26%",
+  badge,
+  soldCount = "1.2k+ sold",
+  isFlashSale = false,
 }: ProductCardProps) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative bg-white rounded-3xl border border-gray-100 p-3 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all duration-300"
+      className="group relative bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-[#ff6000]/20 transition-all duration-300 flex flex-col h-full"
     >
-      {/* Product Image Container */}
-      <div className="relative aspect-square rounded-2xl overflow-hidden bg-gray-50">
-        {/* LINK 1: The Image */}
-        <Link href={`/product/${id}`} className="block w-full h-full">
+      {/* Image Section */}
+      <div className="relative aspect-[1/1] overflow-hidden bg-[#f7f7f7]">
+        <Link href={`/product/${id}`} className="block h-full w-full">
           <img 
             src={image} 
             alt={name} 
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
           />
         </Link>
-        
-        {/* Floating Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1.5 pointer-events-none">
+
+        {/* Badges */}
+        <div className="absolute top-0 left-0 flex flex-col gap-1">
           {badge && (
-            <span className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm uppercase tracking-tighter">
+            <div className="bg-[#ff6000] text-white text-[10px] font-black px-2 py-1 rounded-br-lg shadow-sm">
               {badge}
-            </span>
+            </div>
+          )}
+          {isFlashSale && (
+            <div className="bg-black text-white text-[9px] font-bold px-2 py-0.5 rounded-br-md flex items-center gap-1 w-fit">
+              <Zap size={10} fill="#ff6000" className="text-[#ff6000]" /> FLASH
+            </div>
           )}
         </div>
 
-        {/* Quick Actions Overlay (Desktop) */}
-        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-          {/* LINK 2: Quick View using ID */}
-          <Link 
-            href={`/product/${id}`} 
-            className="h-10 w-10 rounded-full bg-white text-gray-900 flex items-center justify-center shadow-lg hover:bg-emerald-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300"
-          >
-            <Eye size={18} />
-          </Link>
-          <button className="h-10 w-10 rounded-full bg-white text-gray-900 flex items-center justify-center shadow-lg hover:bg-red-500 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300 delay-75">
-            <Heart size={18} />
-          </button>
-        </div>
+        <button className="absolute top-2 right-2 p-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-400 hover:text-red-500 hover:bg-white transition-all opacity-0 group-hover:opacity-100">
+          <Heart size={16} />
+        </button>
       </div>
 
-      {/* Product Details */}
-      <div className="mt-4 px-1 pb-2 space-y-2">
-        <div className="flex items-center gap-1.5">
-          <div className="flex text-yellow-400">
-            <Star size={12} fill="currentColor" />
-          </div>
-          <span className="text-[11px] font-bold text-gray-400">{rating} ({reviews})</span>
-        </div>
-
-        {/* LINK 3: The Product Title */}
-        <Link href={`/product/${id}`} className="block group/title">
-          <h3 className="text-sm font-bold text-gray-900 line-clamp-2 group-hover/title:text-emerald-600 transition-colors leading-tight min-h-[40px]">
+      {/* Content Section */}
+      <div className="p-3 flex flex-col flex-1">
+        {/* Title */}
+        <Link href={`/product/${id}`} className="block mb-1.5">
+          <h3 className="text-[13px] font-medium text-gray-700 line-clamp-2 leading-snug group-hover:text-[#ff6000] transition-colors h-9">
             {name}
           </h3>
         </Link>
 
-        <div className="flex items-center justify-between gap-2 pt-1">
+        {/* Rating & Sold Info */}
+        <div className="flex items-center gap-2 mb-2">
+          <div className="flex text-orange-400">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={10} fill={i < 4 ? "currentColor" : "none"} className={i < 4 ? "" : "text-gray-200"} />
+            ))}
+          </div>
+          <span className="text-[10px] font-bold text-gray-400">{soldCount}</span>
+        </div>
+
+        {/* Price Section */}
+        <div className="mt-auto pt-2 flex items-end justify-between">
           <div className="flex flex-col">
-            <span className="text-lg font-black text-emerald-700 italic tracking-tight">৳{price}</span>
-            {oldPrice && (
-              <span className="text-xs text-gray-400 line-through font-medium">৳{oldPrice}</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-lg font-[1000] text-[#ff6000] tracking-tighter">৳{price}</span>
+              {oldPrice && (
+                <span className="text-[11px] text-gray-400 line-through font-bold">৳{oldPrice}</span>
+              )}
+            </div>
+            {isFlashSale && (
+                <div className="w-full h-1 bg-gray-100 rounded-full mt-1 overflow-hidden">
+                    <div className="w-[70%] h-full bg-[#ff6000]" />
+                </div>
             )}
           </div>
           
-          <button className="h-11 w-11 rounded-2xl bg-gray-900 text-white flex items-center justify-center hover:bg-emerald-600 active:scale-90 transition-all shadow-md group-hover:shadow-emerald-200">
-            <ShoppingCart size={18} />
+          <button className="h-9 w-9 rounded-xl bg-gray-900 text-white flex items-center justify-center hover:bg-[#ff6000] active:scale-90 transition-all shadow-md">
+            <ShoppingCart size={16} strokeWidth={3} />
           </button>
         </div>
       </div>
