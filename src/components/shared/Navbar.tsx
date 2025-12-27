@@ -103,9 +103,11 @@ export default function Navbar() {
 
           {/* User Actions */}
           <div className="flex items-center gap-1.5 lg:gap-6 text-sm font-bold">
+            {/* ✅ Mobile: compact Account icon (shows on mobile), Desktop: original label block */}
             <Link
               href="/login"
-              className="hidden items-center gap-2 hover:text-[#ff6000] lg:flex"
+              className="hidden lg:flex items-center gap-2 hover:text-[#ff6000]"
+              aria-label="Orders & Account"
             >
               <User size={24} strokeWidth={1.5} />
               <div className="flex flex-col leading-tight">
@@ -116,12 +118,19 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* ✅ FIX: Wishlist now visible on mobile too */}
+            <Link
+              href="/login"
+              className="lg:hidden relative p-2 text-black hover:text-[#ff6000] transition-all"
+              aria-label="Orders & Account"
+            >
+              <User size={26} strokeWidth={1.5} />
+            </Link>
+
+            {/* ✅ Wishlist visible on mobile too */}
             <Link
               href="/favourites"
               className={cn(
                 "relative p-2 text-black hover:text-[#ff6000] transition-all",
-                // keep it visible on mobile, previously: hidden sm:block
                 "block"
               )}
               aria-label="Wishlist"
@@ -132,12 +141,22 @@ export default function Navbar() {
               </span>
             </Link>
 
+            {/* ✅ Mobile: compact Support icon (shows on mobile), Desktop: original Support label */}
             <Link
               href="/help"
-              className="hidden items-center gap-2 hover:text-[#ff6000] lg:flex"
+              className="hidden lg:flex items-center gap-2 hover:text-[#ff6000]"
+              aria-label="Support"
             >
               <Headset size={24} strokeWidth={1.5} />
               <span>Support</span>
+            </Link>
+
+            <Link
+              href="/help"
+              className="lg:hidden relative p-2 text-black hover:text-[#ff6000] transition-all"
+              aria-label="Support"
+            >
+              <Headset size={26} strokeWidth={1.5} />
             </Link>
 
             <button
@@ -189,6 +208,26 @@ export default function Navbar() {
       {/* MOBILE MENU */}
       {isMobileMenuOpen && (
         <div className="absolute inset-x-0 top-full bg-white p-6 shadow-2xl lg:hidden border-t">
+          {/* ✅ Mobile quick actions (Account + Support) */}
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            <Link
+              href="/login"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-100 bg-gray-50 font-black text-xs uppercase tracking-tight hover:bg-white"
+            >
+              <User size={16} />
+              Orders & Account
+            </Link>
+            <Link
+              href="/help"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-100 bg-gray-50 font-black text-xs uppercase tracking-tight hover:bg-white"
+            >
+              <Headset size={16} />
+              Support
+            </Link>
+          </div>
+
           <div className="space-y-4 font-bold">
             {navLinks.map((tab) => (
               <Link
