@@ -206,8 +206,9 @@ const categories = [
 ];
 const brands = ["Baseus", "Anker", "Samsung", "Xiaomi", "Apple", "Ugreen"];
 
+
 export default function AllProductsPage() {
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [priceRange, setPriceRange] = useState(5000);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
@@ -217,33 +218,55 @@ export default function AllProductsPage() {
     } else {
       document.body.style.overflow = "unset";
     }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isMobileFilterOpen]);
 
   return (
-    <div className="bg-[#f4f4f4] min-h-screen pb-20">
+    // ✅ KEY FIX: prevent any accidental horizontal overflow that creates right black space
+    <div className="bg-[#f4f4f4] min-h-screen pb-20 w-full overflow-x-hidden">
       {/* 1. TRUST BAR */}
-      <div className="bg-white border-b border-gray-100 py-2">
-        <div className="max-w-[1600px] mx-auto px-4 flex items-center justify-between text-[11px] font-bold text-gray-500 uppercase tracking-tight">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-1 text-emerald-600">
+      <div className="bg-white border-b border-gray-100 py-2 w-full">
+        <div
+          className={cn(
+            "max-w-[1600px] mx-auto px-4",
+            // ✅ KEY FIX: allow wrapping on tiny screens so nothing pushes wider than viewport
+            "flex flex-wrap items-center justify-between gap-y-2",
+            "text-[11px] font-bold text-gray-500 uppercase tracking-tight"
+          )}
+        >
+          {/* Left items */}
+          <div
+            className={cn(
+              "flex items-center gap-4 sm:gap-6",
+              // ✅ KEY FIX: allow wrap instead of forcing one long row
+              "flex-wrap min-w-0"
+            )}
+          >
+            <div className="flex items-center gap-1 text-emerald-600 whitespace-nowrap">
               <Zap size={12} fill="currentColor" /> Price Match
             </div>
-            <div className="flex items-center gap-1">
+
+            <div className="flex items-center gap-1 whitespace-nowrap">
               <RotateCcw size={12} /> 90-Day Returns
             </div>
-            <div className="flex items-center gap-1">
+
+            <div className="flex items-center gap-1 whitespace-nowrap">
               <ShieldCheck size={12} /> Secure
             </div>
           </div>
-          <div className="hidden md:block text-[#ff6000]">
+
+          {/* Right promo (hide on very small, show from md like you had) */}
+          <div className="hidden md:block text-[#ff6000] whitespace-nowrap">
             Free Shipping on all orders
           </div>
         </div>
       </div>
 
       {/* 2. MAIN LAYOUT */}
-      <div className="max-w-[1600px] mx-auto px-4 mt-4">
-        <div className="flex flex-col lg:flex-row gap-5">
+      <div className="max-w-[1600px] mx-auto px-4 mt-4 w-full">
+        <div className="flex flex-col lg:flex-row gap-5 w-full">
           {/* 3. SLIM SIDEBAR - Enhanced for Sticky + Internal Scroll */}
           <aside className="hidden lg:block w-64 shrink-0">
             <div
@@ -368,23 +391,29 @@ export default function AllProductsPage() {
           </aside>
 
           {/* 4. CONTENT AREA */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 w-full">
             {/* TOOLBAR */}
-            <div className="bg-white rounded-2xl border border-gray-200 mb-4 px-4 py-3 flex items-center justify-between">
-              <div className="flex items-baseline gap-2">
-                <h1 className="text-lg font-[1000] text-gray-900 uppercase italic leading-none">
+            <div
+              className={cn(
+                "bg-white rounded-2xl border border-gray-200 mb-4 px-4 py-3",
+                // ✅ KEY FIX: allow wrap so controls never force overflow
+                "flex flex-wrap items-center justify-between gap-3 min-w-0"
+              )}
+            >
+              <div className="flex items-baseline gap-2 min-w-0">
+                <h1 className="text-lg font-[1000] text-gray-900 uppercase italic leading-none whitespace-nowrap">
                   All <span className="text-[#ff6000]">Gadgets</span>
                 </h1>
-                <span className="text-[11px] font-bold text-gray-400">
+                <span className="text-[11px] font-bold text-gray-400 whitespace-nowrap">
                   2,410 ITEMS
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap justify-end min-w-0">
                 {/* Mobile Trigger Button */}
                 <button
                   onClick={() => setIsMobileFilterOpen(true)}
-                  className="lg:hidden flex items-center gap-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-tighter active:scale-[0.98] transition-transform"
+                  className="lg:hidden flex items-center gap-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-tighter active:scale-[0.98] transition-transform whitespace-nowrap"
                 >
                   <SlidersHorizontal size={14} /> Filter
                 </button>
@@ -398,6 +427,7 @@ export default function AllProductsPage() {
                         ? "bg-white shadow-sm text-[#ff6000]"
                         : "text-gray-400"
                     )}
+                    aria-label="Grid view"
                   >
                     <Grid2X2 size={16} />
                   </button>
@@ -409,12 +439,14 @@ export default function AllProductsPage() {
                         ? "bg-white shadow-sm text-[#ff6000]"
                         : "text-gray-400"
                     )}
+                    aria-label="List view"
                   >
                     <List size={16} />
                   </button>
                 </div>
 
-                <select className="bg-transparent text-[12px] font-black uppercase text-gray-700 outline-none">
+                {/* ✅ KEY FIX: prevent select from stretching and causing overflow */}
+                <select className="bg-transparent text-[12px] font-black uppercase text-gray-700 outline-none max-w-[12rem] truncate">
                   <option>Recommended</option>
                   <option>Price: Low to High</option>
                 </select>
@@ -424,6 +456,8 @@ export default function AllProductsPage() {
             {/* PRODUCT GRID */}
             <div
               className={cn(
+                "w-full min-w-0",
+                // ✅ KEY FIX: ensure grid can't exceed viewport; also avoid weird overflow
                 "grid gap-2 sm:gap-3",
                 viewMode === "grid"
                   ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
@@ -447,7 +481,9 @@ export default function AllProductsPage() {
         className={cn(
           "lg:hidden fixed left-1/2 -translate-x-1/2 z-[60] bg-black text-white px-6 py-3.5 rounded-full shadow-2xl flex items-center gap-3 active:scale-95 transition-transform",
           // ✅ safe-area friendly bottom spacing for iOS home bar
-          "bottom-[calc(env(safe-area-inset-bottom,0px)+1.5rem)]"
+          "bottom-[calc(env(safe-area-inset-bottom,0px)+1.5rem)]",
+          // ✅ KEY FIX: avoid any chance of it pushing layout width
+          "max-w-[calc(100vw-2rem)]"
         )}
       >
         <Filter size={18} className="text-[#ff6000]" />
@@ -460,7 +496,7 @@ export default function AllProductsPage() {
 
       {/* 6. MOBILE FILTER DRAWER */}
       {isMobileFilterOpen && (
-        <div className="fixed inset-0 z-[100] flex flex-col justify-end">
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end w-full overflow-x-hidden">
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
             onClick={() => setIsMobileFilterOpen(false)}
@@ -551,7 +587,10 @@ export default function AllProductsPage() {
             {/* Sticky footer actions */}
             <div
               className="sticky bottom-0 z-10 p-4 bg-white border-t border-gray-100 flex gap-3"
-              style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 1rem)" }}
+              style={{
+                paddingBottom:
+                  "calc(env(safe-area-inset-bottom,0px) + 1rem)",
+              }}
             >
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
