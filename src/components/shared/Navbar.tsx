@@ -29,17 +29,15 @@ export default function Navbar() {
 
   const isActive = (slug: string) => currentCategory === slug;
 
-
-
-   const navLinks = [
-      { label: "All categories", slug: "all", icon: "" },
+  const navLinks = [
+    { label: "All categories", slug: "all", icon: "" },
     { label: "Best-Selling Items", slug: "best-selling", icon: "👍" },
     { label: "5-Star Rated", slug: "top-rated", icon: "⭐" },
     { label: "Flash Sales", slug: "flash-sale", isFlash: true },
     { label: "Electronics", slug: "electronics" },
     { label: "Home & Decor", slug: "home-decor" },
     { label: "Gadgets", slug: "gadgets" },
-     { label: "New Arrivals", slug: "new-arrivals" },
+    { label: "New Arrivals", slug: "new-arrivals" },
   ];
 
   return (
@@ -63,26 +61,28 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full hover:bg-white/20 cursor-pointer transition-all">
             <span className="font-bold">Sell on BIP BAZAR</span>
-            <div className="bg-[#ff6000] text-white px-2 py-0.5 rounded text-[10px] uppercase">Join Now</div>
+            <div className="bg-[#ff6000] text-white px-2 py-0.5 rounded text-[10px] uppercase">
+              Join Now
+            </div>
           </div>
         </div>
       </div>
 
       {/* 2. MAIN NAVIGATION (TEMU ORANGE THEME) */}
       <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between gap-4 lg:gap-10">
+        <div className="flex items-center justify-between gap-3 lg:gap-10">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1 shrink-0">
             <div className="bg-[#ff6000] p-1.5 rounded-md shadow-sm">
-                {/* Custom Temu-style icon blocks */}
-                <div className="grid grid-cols-2 gap-0.5">
-                    <div className="w-2 h-2 bg-white rounded-sm"></div>
-                    <div className="w-2 h-2 bg-white rounded-sm"></div>
-                    <div className="w-2 h-2 bg-white rounded-sm"></div>
-                    <div className="w-2 h-2 bg-white rounded-sm"></div>
-                </div>
+              {/* Custom Temu-style icon blocks */}
+              <div className="grid grid-cols-2 gap-0.5">
+                <div className="w-2 h-2 bg-white rounded-sm"></div>
+                <div className="w-2 h-2 bg-white rounded-sm"></div>
+                <div className="w-2 h-2 bg-white rounded-sm"></div>
+                <div className="w-2 h-2 bg-white rounded-sm"></div>
+              </div>
             </div>
-            <span className="text-2xl font-black tracking-tighter text-black uppercase ml-1">
+            <span className="text-xl sm:text-2xl font-black tracking-tighter text-black uppercase ml-1">
               BIP<span className="text-[#ff6000]">BAZAR</span>
             </span>
           </Link>
@@ -102,71 +102,70 @@ export default function Navbar() {
           </div>
 
           {/* User Actions */}
-        {/* User Actions */}
-<div className="flex items-center gap-1 lg:gap-6 text-sm font-bold">
-  <Link
-    href="/login"
-    className="hidden items-center gap-2 hover:text-[#ff6000] lg:flex"
-  >
-    <User size={24} strokeWidth={1.5} />
-    <div className="flex flex-col leading-tight">
-      <span className="text-[11px] font-normal text-gray-500">Orders &</span>
-      <span>Account</span>
-    </div>
-  </Link>
+          <div className="flex items-center gap-1.5 lg:gap-6 text-sm font-bold">
+            <Link
+              href="/login"
+              className="hidden items-center gap-2 hover:text-[#ff6000] lg:flex"
+            >
+              <User size={24} strokeWidth={1.5} />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[11px] font-normal text-gray-500">
+                  Orders &
+                </span>
+                <span>Account</span>
+              </div>
+            </Link>
 
-  {/* WISHLIST ADDED BACK HERE */}
-  <Link
-    href="/favourites"
-    className="relative p-2 text-black hover:text-[#ff6000] transition-all hidden sm:block"
-  >
-    <Heart size={26} strokeWidth={1.5} />
-    <span className="absolute right-0 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#ff6000] text-[10px] font-bold text-white ring-2 ring-white">
-      2
-    </span>
-  </Link>
+            {/* ✅ FIX: Wishlist now visible on mobile too */}
+            <Link
+              href="/favourites"
+              className={cn(
+                "relative p-2 text-black hover:text-[#ff6000] transition-all",
+                // keep it visible on mobile, previously: hidden sm:block
+                "block"
+              )}
+              aria-label="Wishlist"
+            >
+              <Heart size={26} strokeWidth={1.5} />
+              <span className="absolute right-0 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#ff6000] text-[10px] font-bold text-white ring-2 ring-white">
+                2
+              </span>
+            </Link>
 
-  <Link
-    href="/help"
-    className="hidden items-center gap-2 hover:text-[#ff6000] lg:flex"
-  >
-    <Headset size={24} strokeWidth={1.5} />
-    <span>Support</span>
-  </Link>
+            <Link
+              href="/help"
+              className="hidden items-center gap-2 hover:text-[#ff6000] lg:flex"
+            >
+              <Headset size={24} strokeWidth={1.5} />
+              <span>Support</span>
+            </Link>
 
-  <button
-    onClick={() => setIsCartOpen(true)}
-    className="relative p-2 text-black hover:text-[#ff6000] transition-all"
-  >
-    <ShoppingCart size={28} strokeWidth={1.5} />
-    <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff6000] text-[10px] font-bold text-white ring-2 ring-white">
-      1
-    </span>
-  </button>
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 text-black hover:text-[#ff6000] transition-all"
+              aria-label="Cart"
+            >
+              <ShoppingCart size={28} strokeWidth={1.5} />
+              <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff6000] text-[10px] font-bold text-white ring-2 ring-white">
+                1
+              </span>
+            </button>
 
-  {/* Mobile Menu Toggle */}
-  <button
-    className="lg:hidden text-black"
-    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-  >
-    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-  </button>
-</div>
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden text-black p-2 -mr-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Menu"
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* 3. CATEGORY BAR */}
       <div className="hidden border-b border-gray-100 lg:block bg-white">
         <div className="container mx-auto flex items-center gap-6 px-4">
-           {/* <Link
-            href="/products"
-            className="flex items-center gap-2 bg-emerald-950 px-5 py-3 text-sm font-bold text-white hover:bg-emerald-900 transition-colors rounded-t-none"
-          >
-            <LayoutGrid size={18} />
-            All Categories
-            <ChevronDown size={14} />
-          </Link> */}
-
           <div className="flex items-center gap-6 text-[14px] font-bold">
             {navLinks.map((tab) => (
               <Link
@@ -174,7 +173,9 @@ export default function Navbar() {
                 href={`/products?category=${tab.slug}`}
                 className={cn(
                   "flex items-center gap-1.5 py-3 transition-colors",
-                  isActive(tab.slug) ? "text-[#ff6000]" : "text-black hover:text-[#ff6000]"
+                  isActive(tab.slug)
+                    ? "text-[#ff6000]"
+                    : "text-black hover:text-[#ff6000]"
                 )}
               >
                 {tab.icon && <span>{tab.icon}</span>}
@@ -184,20 +185,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* 4. PRICE MATCH / SECURITY REMINDER (TEMU FEATURE) */}
-      {/* <div className="bg-[#f6f6f6] border-b border-gray-200 py-2">
-         <div className="container mx-auto px-4 flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-10 text-[12px] text-gray-600">
-            <div className="flex items-center gap-1 text-green-700 font-bold">
-                <span className="bg-green-700 text-white rounded-full p-0.5">✔</span>
-                Never overpay with our Price Match Guarantee
-            </div>
-            <div className="flex items-center gap-1">
-                <span className="text-yellow-600">🔔</span>
-                Security reminder: Please be wary of scam messages and links.
-            </div>
-         </div>
-      </div> */}
 
       {/* MOBILE MENU */}
       {isMobileMenuOpen && (
