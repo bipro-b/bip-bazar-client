@@ -268,22 +268,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
         {/* REVIEWS SECTION */}
         <div className="mt-24">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-black uppercase italic tracking-tighter">Customer Voice</h2>
-            <div className="h-1 flex-1 bg-gray-100 rounded-full"></div>
-          </div>
-          <div className="bg-white p-12 rounded-[50px] border border-gray-100 shadow-sm">
             <ProductReviews />
-          </div>
         </div>
          <div className="mt-24">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-black uppercase italic tracking-tighter">Customer Voice</h2>
-            <div className="h-1 flex-1 bg-gray-100 rounded-full"></div>
-          </div>
-          <div className="bg-white p-12 rounded-[50px] border border-gray-100 shadow-sm">
             <RelatedProdcts/>
-          </div>
         </div>
       </div>
     </div>
