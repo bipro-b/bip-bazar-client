@@ -122,31 +122,7 @@ export default function Navbar() {
                 <span>Account</span>
               </div>
             </Link>
-
-            {/* Mobile Account */}
-            <Link
-              href="/login"
-              className="lg:hidden relative p-2 text-black hover:text-[#ff6000] transition-all"
-              aria-label="Orders & Account"
-            >
-              <User size={24} strokeWidth={1.5} />
-            </Link>
-
-            {/* Wishlist */}
-            <Link
-              href="/favourites"
-              className={cn(
-                "relative p-2 text-black hover:text-[#ff6000] transition-all",
-                "block"
-              )}
-              aria-label="Wishlist"
-            >
-              <Heart size={24} strokeWidth={1.5} />
-              {/* ✅ use right-0/top-0 without pushing outside */}
-              <span className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#ff6000] text-[10px] font-bold text-white ring-2 ring-white">
-                2
-              </span>
-            </Link>
+           
 
             {/* Desktop Support */}
             <Link
@@ -156,15 +132,6 @@ export default function Navbar() {
             >
               <Headset size={24} strokeWidth={1.5} />
               <span>Support</span>
-            </Link>
-
-            {/* Mobile Support */}
-            <Link
-              href="/help"
-              className="lg:hidden relative p-2 text-black hover:text-[#ff6000] transition-all"
-              aria-label="Support"
-            >
-              <Headset size={24} strokeWidth={1.5} />
             </Link>
 
             {/* Cart */}
@@ -251,7 +218,7 @@ export default function Navbar() {
             {/* Mobile quick actions (Account + Support) */}
             <div className="grid grid-cols-2 gap-3 mb-6">
               <Link
-                href="/login"
+                href="/account/orders"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-100 bg-gray-50 font-black text-xs uppercase tracking-tight hover:bg-white"
               >
