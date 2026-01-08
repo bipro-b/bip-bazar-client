@@ -110,7 +110,7 @@ export default function Navbar() {
           <div className="flex shrink-0 min-w-0 items-center gap-1.5 lg:gap-6 text-sm font-bold">
             {/* Desktop Account */}
             <Link
-              href="/login"
+              href="/account/orders"
               className="hidden lg:flex items-center gap-2 hover:text-[#ff6000]"
               aria-label="Orders & Account"
             >
