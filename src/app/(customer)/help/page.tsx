@@ -1,9 +1,12 @@
 import SupportView from "@/components/help/SupportView";
 
-export default function SupportPage() {
+export default function HelpPage() {
   return (
-    <main className="min-h-screen bg-[#F4F4F4] pb-20">
-      <SupportView />
-    </main>
+    <div className="min-h-screen bg-[#F4F4F4]">
+      {/* Container to match your site's max-width */}
+      <div className="container mx-auto py-8">
+        <SupportView />
+      </div>
+    </div>
   );
 }
